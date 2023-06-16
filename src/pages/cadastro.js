@@ -12,6 +12,16 @@ export default function Cadastro() {
     const [nomecartao, setNomeCartao] = useState('');
     const [numcartao, setNumCartao] = useState('');
     const [cvc, setCvc] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+
+    function handleEmailChange(event) {
+        setEmail(event.target.value);
+    }  
+    
+    function handleSenhaChange(event) {
+        setSenha(event.target.value);
+    }
 
     function handleNomeChange(event) {
         setNome(event.target.value);
@@ -83,16 +93,22 @@ export default function Cadastro() {
                 <label htmlFor="NumerocvcInput">Número do CVC:</label><br />
                 <input className="form-control" placeholder="Número do CVC" type="password" maxLength={3} value={cvc} onChange={handleCvcChange} /> <br />
               </div>
+              <div className="mt-3">
+                <label htmlFor="NumerocvcInput">Email:</label><br />
+                <input className="form-control" placeholder="Número do CVC" type="email" value={email} onChange={handleEmailChange} /> <br />
+              </div>
+              <div className="mt-3">
+                <label htmlFor="NumerocvcInput">Senha:</label><br />
+                <input className="form-control" placeholder="Número do CVC" type="password" value={senha} onChange={handleSenhaChange} /> <br />
+              </div>
             </div>
           </div>
           <div>
     
-            <div>
-              <Buttonsign />
-            </div>
+    
             <div className="mt-5 text-center">
     
-                  <button>Assinar</button>
+                  <button>Cadastrar</button>
                 
             </div>
     
