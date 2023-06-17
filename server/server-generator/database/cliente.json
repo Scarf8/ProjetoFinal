@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "nomecomp": "Ana Nogueira",
+    "fotoPf": "não sei o que por ainda",
+    "cpf": 12345678900,
+    "dataNascimento": "15/07/1990",
+    "telefone": 41111111111,
+    "endereco": "Rua das Palmeiras 456",
+    "nomeCartao": "Ana Nogueira Ribas",
+    "numCartao": 4444111188889999,
+    "cvc": 123,
+    "cidade": "Curitiba",
+    "estado": "PR",
+    "email": "PR",
+    "senha": "não sei o que colocar aqui",
+    "status": true
+  }
+]
