@@ -1,18 +1,39 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import api from '../../src/services/api';
 import Title from './../components/Title/index';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    function handleEmailChange(event) {
-        setEmail(event.target.value);
-    }  
-    
-    function handleSenhaChange(event) {
-        setSenha(event.target.value);
-    }
+    const navigate = useNavigate();
+
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const bodyParam = {
+          email: email,
+          senha: senha
+      }
+
+      api.post('/auth', bodyParam)
+          .then((response) => {
+              console.log(response.data)
+              alert(" Token gerado para o usuario " + response.data.nome)
+              localStorage.setItem("token", response.data.token);
+              navigate("/");
+          })
+          .catch((err) => {
+              console.error(err.response.data) // Objeto de erro vindo do axios
+              alert(" Ocorreu um erro! " + err.response.data.error)
+          })
+          .finally(() => {
+              setEmail("")
+              setSenha("")
+          })
+  }
 
     return (
 
@@ -22,35 +43,37 @@ function Login() {
                         title={"Insira os dados de Login"}
                         />
           </div>
-          <div className="row mt-5">
-            <div className="col">
-              <div>
-                <div className="mt-3">
-                  <label> Login </label>
+          <div className="container text-center">
+            <div className="row">
+                <div className="form-custom">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label>
+                                Email:
+                                <input type="text" className="form-control" value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                            </label>
+                        </div>
+                        <br />
+                        <div className="form-group">
+                            <label>
+                                Senha:
+                                <input type="password" className="form-control" value={senha} onChange={(e) => { setSenha(e.target.value) }} />
+                            </label>
+                        </div>
+                        <div>
+                                 <Link to='/'>Ainda não tem cadastro?</Link> 
+                        </div>
+                        <br />
+                    </form>
                 </div>
-              </div>
-              <div className="mt-3">
-                <label htmlFor="nameInput">Email:</label><br />
-                <input class="form-control" placeholder="Email" id="emailInput" type="email" value={email} onChange={handleEmailChange} /> <br />
-              </div>
-              <div className="mt-3">
-                <label htmlFor="nameInput">Senha:</label><br />
-                <input class="form-control" placeholder="Senha" id="senhaInput" type="password" value={senha} onChange={handleSenhaChange} /> <br />
-              </div>
+            </div>
+        </div>
 
-              <div>
-
-            <Link to='/'>Ainda não tem cadastro?</Link> 
-              </div>
-
+        
               <div className="mt-5 text-center">
-    
-                  <button >Login</button>
-                
-            </div>
-                    </div>       
-                </div>
-            </div>
+                  <button type="submit">Login</button>
+              </div>
+        </div>       
     
       );
     }
