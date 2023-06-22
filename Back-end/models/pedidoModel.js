@@ -1,9 +1,9 @@
 const createHttpError = require('http-errors');
 const mongoose = require('mongoose');
 
-const cadSchema = new mongoose.Schema({
+const pedSchema = new mongoose.Schema({
     id: Number,
-    preco: String,
+    precoT: String,
     listaQuant: String,
     clientePed: String,
     dataPed: String,
@@ -11,4 +11,4 @@ const cadSchema = new mongoose.Schema({
     statusDoPed: Boolean
 });
 
-module.exports = mongoose.model('cliente', cadSchema);
+module.exports = mongoose.model('pedido', pedSchema);
