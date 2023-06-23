@@ -45,4 +45,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+app.get("/get", async(req,res)=>{
+
+  const data=new monmodel({
+    id:req.body.id
+  });
+
+  const val=await data.save();
+  res.send("obtido");
+})
 module.exports = app;
