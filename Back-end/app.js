@@ -55,4 +55,34 @@ app.get("/get", async(req,res)=>{
   const val=await data.save();
   res.send("obtido");
 })
+
+// app.put("/put", async(req,res)=>{
+
+//   const data=new monmodel({
+//     id:req.body.id
+//   });
+
+//   const val=await data.save();
+//   res.send("obtido");
+// })
+
+// app.post("/post", async(req,res)=>{
+
+//   const data=new monmodel({
+//     id:req.body.id
+//   });
+
+//   const val=await data.save();
+//   res.send("obtido");
+// })
+
+// app.list("/list", async(req,res)=>{
+
+//   const data=new monmodel({
+//     id:req.body.id
+//   });
+
+//   const val=await data.save();
+//   res.send("obtido");
+// })
 module.exports = app;
