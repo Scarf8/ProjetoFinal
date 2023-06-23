@@ -86,8 +86,8 @@ function Home() {
                         <div className="form-group">
                             <label htmlFor="orderby">Ordenar por:</label>
                             <select id="orderby" className="form-control" value={`${orderBy},${orderDirection}`} onChange={handleOrderByChange}>
-                                <option value="titulo,asc">Título (A-Z)</option>
-                                <option value="titulo,desc">Título (Z-A)</option>
+                                <option value="titulo,asc">Menor Preço (A-Z)</option>
+                                <option value="titulo,desc">Maior Preço (Z-A)</option>
                                 <option value="ano,asc">Ano antigo</option>
                                 <option value="ano,desc">Ano recente</option>
                                 <option value="nota,asc">Nota menor</option>
