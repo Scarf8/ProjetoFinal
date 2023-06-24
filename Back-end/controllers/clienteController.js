@@ -1,4 +1,5 @@
 const clienteModel = require('../models/clienteModel');
+const auth = require('../auth/auth');
 
 class clienteController {
     async salvar(req, res) {
@@ -7,7 +8,7 @@ class clienteController {
         cliente.id = max == null ? 1 : max.id + 1;
         const resultado = await clienteModel.create(cliente);
         res.status(201).json(resultado);
-    }
+    }   
 
     async listar(req, res) {
         const resultado = await clienteModel.find({});

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Title from './../components/Title/index';
-import Buttonsign from '../components/Buttonsign/buttonsign';
+import api from '../../src/services/api';
+
 
 
 
@@ -15,37 +16,41 @@ export default function Cadastro() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    function handleEmailChange(event) {
-        setEmail(event.target.value);
-    }  
-    
-    function handleSenhaChange(event) {
-        setSenha(event.target.value);
-    }
+    const handleSubmit = (event) => {
+      event.preventDefault();
 
-    function handleNomeChange(event) {
-        setNome(event.target.value);
-    }  
-    
-    function handleTelefoneChange(event) {
-        setTelefone(event.target.value);
-    }
+      const bodyParam = {
+          nome: nome,
+          telefone: telefone,
+          endereco: endereco,
+          nomecartao: nomecartao,
+          numcartao: numcartao,
+          cvc: cvc,
+          email: email,
+          senha: senha
 
-    function handleEnderecoChange(event) {
-        setEndereco(event.target.value);
-    }
+      }
 
-    function handleNomeCartaoChange(event) {
-        setNomeCartao(event.target.value);
-    }
-
-    function handleNumCartaoChange(event) {
-        setNumCartao(event.target.value);
-    }
-
-    function handleCvcChange(event) {
-        setCvc(event.target.value);
-    }
+      api.post('/clientes', bodyParam)
+          .then((response) => {
+              console.log(response.data)
+              alert(" O usuario " + response.data.codigo + " foi criado com sucesso!")
+          })
+          .catch((err) => {
+              console.error(err)
+              alert(" Ocorreu um erro! Veja no console ..")
+          })
+          .finally(() => {
+              setNome("")
+              setTelefone("")
+              setEndereco("")
+              setNomeCartao("")
+              setNumCartao("")
+              setCvc("")
+              setEmail("")
+              setSenha("")
+          })
+  }
 
     return (
 
@@ -55,6 +60,7 @@ export default function Cadastro() {
                         title={"Cadastro de conta"}
                         />
           </div>
+          <form onSubmit={handleSubmit}>
           <div className="row mt-5">
             <div className="col">
               <div>
@@ -64,15 +70,15 @@ export default function Cadastro() {
               </div>
               <div className="mt-3">
                 <label htmlFor="nameInput">Name:</label><br />
-                <input class="form-control" placeholder="Nome Completo" id="nameInput" type="text" value={nome} onChange={handleNomeChange} /> <br />
+                <input class="form-control" placeholder="Nome Completo" id="nameInput" type="text" value={nome} onChange={(e) => { setNome(e.target.value) }} /> <br />
               </div>
               <div className="mt-3">
                 <label htmlFor="nameInput">Telefone:</label><br />
-                <input class="form-control" placeholder="Telefone" id="TelefoneInput" type="number" value={telefone} onChange={handleTelefoneChange} /> <br />
+                <input class="form-control" placeholder="Telefone" id="TelefoneInput" type="number" value={telefone} onChange={(e) => { setTelefone(e.target.value) }} /> <br />
               </div>
               <div className="mt-3">
                 <label htmlFor="nameInput">Endereço:</label><br />
-                <input class="form-control" placeholder="Endereço" id="EnderecoInput" type="text" value={endereco} onChange={handleEnderecoChange} /> <br />
+                <input class="form-control" placeholder="Endereço" id="EnderecoInput" type="text" value={endereco} onChange={(e) => { setEndereco(e.target.value) }} /> <br />
               </div>
             </div>
     
@@ -83,23 +89,23 @@ export default function Cadastro() {
               </div>
               <div className="mt-3">
                 <label htmlFor="nameInput">Nome do Cartão:</label><br />
-                <input class="form-control" placeholder="Nome do cartão" type="text" value={nomecartao} onChange={handleNomeCartaoChange} /> <br />
+                <input class="form-control" placeholder="Nome do cartão" type="text" value={nomecartao} onChange={(e) => { setNomeCartao(e.target.value) }} /> <br />
               </div>
               <div className="mt-3">
                 <label htmlFor="nameInput">Número do Cartão:</label><br />
-                <input className="form-control" placeholder="Número do cartão"  type="text" maxLength={19} value={numcartao} onChange={handleNumCartaoChange} /> <br />
+                <input className="form-control" placeholder="Número do cartão"  type="text" maxLength={19} value={numcartao} onChange={(e) => { setNumCartao(e.target.value) }} /> <br />
               </div>
               <div className="mt-3">
                 <label htmlFor="NumerocvcInput">Número do CVC:</label><br />
-                <input className="form-control" placeholder="Número do CVC" type="password" maxLength={3} value={cvc} onChange={handleCvcChange} /> <br />
+                <input className="form-control" placeholder="Número do CVC" type="password" maxLength={3} value={cvc} onChange={(e) => { setCvc(e.target.value) }} /> <br />
               </div>
               <div className="mt-3">
                 <label htmlFor="NumerocvcInput">Email:</label><br />
-                <input className="form-control" placeholder="Número do CVC" type="email" value={email} onChange={handleEmailChange} /> <br />
+                <input className="form-control" placeholder="Email" type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} /> <br />
               </div>
               <div className="mt-3">
                 <label htmlFor="NumerocvcInput">Senha:</label><br />
-                <input className="form-control" placeholder="Número do CVC" type="password" value={senha} onChange={handleSenhaChange} /> <br />
+                <input className="form-control" placeholder="Senha" type="password" value={senha} onChange={(e) => { setSenha(e.target.value) }} /> <br />
               </div>
             </div>
           </div>
@@ -111,9 +117,12 @@ export default function Cadastro() {
                   <button>Cadastrar</button>
                 
             </div>
+           
     
           </div>
+          </form>
         </div>
+       
     
       );
     }

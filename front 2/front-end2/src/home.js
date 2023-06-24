@@ -18,7 +18,7 @@ function Home() {
     return (
         <div>
             <Title
-                title={"Catálogo de Filmes"}/>
+                title={"Catálogo de Produtos"}/>
             {/* <input type="search" value={search} onChange={(e) => setSearch(e.target.value)}/> s */}
             <select name="value" value={valor} onChange={texto => setValue(texto.target.value)}>
                 <option value="">Selecione</option>

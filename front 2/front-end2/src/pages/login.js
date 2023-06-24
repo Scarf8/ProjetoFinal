@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import api from '../../src/services/api';
+import api from '../services/api';
 import Title from './../components/Title/index';
 
 function Login() {

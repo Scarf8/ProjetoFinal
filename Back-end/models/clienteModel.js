@@ -1,21 +1,38 @@
-const createHttpError = require('http-errors');
 const mongoose = require('mongoose');
+const bcryptjs = require('bcryptjs');
 
-const cadSchema = new mongoose.Schema({
-    id: Number,
-    nomecomp: String,
-    fotoPf: String,
-    cpf: String,
-    dataNascimento: String,
-    telefone: Number,
-    endereco: String,
-    nomeCartao: Number,
-    cvc: Number,
-    cidade: String,
-    estado: String,
-    emai: String,
-    senha: String,
-    status: Boolean
+const clienteSchema = new mongoose.Schema({
+    codigo: Number,
+    nome: {
+        type: String,
+        require: true
+    },
+    telefone: String,
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        lowercase: true
+    },
+    senha: {
+        type: String,
+        required: true,
+        select: false
+    },
+    dtaCriacao: {
+        type: Date,
+        default: Date.now
+    },
+    token: {
+        type: String,
+        select: false
+    }
 });
 
-module.exports = mongoose.model('cliente', cadSchema);
+clienteSchema.pre('save', async function (next) {
+    const hash = await bcryptjs.hash(this.senha, 10);
+    this.senha = hash;
+    next();
+  });
+  
+module.exports = mongoose.model('clientes', clienteSchema);
